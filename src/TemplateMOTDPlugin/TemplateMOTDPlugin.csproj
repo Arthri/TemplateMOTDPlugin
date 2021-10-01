@@ -37,6 +37,7 @@
     <Compile Include="Configuration\Paths.cs" />
     <Compile Include="TemplateMOTD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templating\DefaultModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OTAPI">

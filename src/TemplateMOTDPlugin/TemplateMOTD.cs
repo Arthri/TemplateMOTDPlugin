@@ -1,5 +1,7 @@
 using System;
 using System.Reflection;
+using TemplateMOTDPlugin.Configuration;
+using TemplateMOTDPlugin.Templating;
 using Terraria;
 using TerrariaApi.Server;
 
@@ -15,6 +17,10 @@ namespace TemplateMOTDPlugin
         public override Version Version => Assembly.GetExecutingAssembly().GetName().Version;
 
         public override string Author => Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyCompanyAttribute>().Company;
+
+        public static MOTDTemplate RawMOTD { get; private set; }
+
+        public static string MOTD => RawMOTD.ParsedTemplate.Render(new DefaultModel());
 
         public TemplateMOTD(Main game) : base(game)
         {
