@@ -75,6 +75,42 @@ namespace TemplateMOTDPlugin
 
         public void LoadConfig()
         {
+            // Check if TShock's MOTD file is empty, if not, move it
+            var tshockMOTDPath = Path.Combine(TShock.SavePath, "motd.txt");
+            FileInfo tshockMOTDFile;
+            try
+            {
+                tshockMOTDFile = new FileInfo(tshockMOTDPath);
+            }
+            catch (Exception e)
+            {
+                TShock.Log.Error($"Aborted TShock MOTD check:\n{e}");
+                goto PostTShockMOTDCheck;
+            }
+
+            if (tshockMOTDFile.Length > 0)
+            {
+                try
+                {
+                    var fileCreationTimestamp = ((DateTimeOffset)tshockMOTDFile.CreationTimeUtc).ToUnixTimeMilliseconds();
+                    var destFile = $"motd.old.tshock.{fileCreationTimestamp}.txt";
+                    var dest = Path.Combine(Paths.SavePath, destFile);
+
+                    // Backup old MOTD
+                    tshockMOTDFile.MoveTo(dest);
+
+                    // Create an empty file
+                    using (File.CreateText(tshockMOTDPath)) { }
+
+                    TShock.Log.Info($"Moved and replaced TShock MOTD file. Destination: {dest}");
+                }
+                catch (Exception e)
+                {
+                    TShock.Log.Error($"TShock MOTD backup aborted:\n{e}");
+                }
+            }
+
+        PostTShockMOTDCheck:
             RawMOTD = new MOTDTemplate(Paths.MOTDPath);
         }
 
