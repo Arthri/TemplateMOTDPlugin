@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using TemplateMOTDPlugin.Configuration;
@@ -31,7 +32,24 @@ namespace TemplateMOTDPlugin
 
         public override void Initialize()
         {
-            RawMOTD = new MOTDTemplate(Paths.MOTDPath);
+            // Create all important folders
+            Directory.CreateDirectory(Paths.SavePath);
+
+            var motdPath = Paths.MOTDPath;
+
+            if (!File.Exists(motdPath))
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                using (var stream = assembly.GetManifestResourceStream($"{nameof(TemplateMOTDPlugin)}.{nameof(Resources)}.DefaultMOTD.txt"))
+                {
+                    using (var file = new FileStream(motdPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                    {
+                        stream.CopyTo(file);
+                    }
+                }
+            }
+
+            RawMOTD = new MOTDTemplate(motdPath);
 
             ServerApi.Hooks.NetGreetPlayer.Register(this, OnGreetPlayer);
 
