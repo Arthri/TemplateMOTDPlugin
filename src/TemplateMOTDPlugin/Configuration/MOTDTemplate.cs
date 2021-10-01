@@ -37,7 +37,7 @@ namespace TemplateMOTDPlugin.Configuration
         /// <param name="motdPath"><inheritdoc cref="MOTDPath" path="/summary"/></param>
         /// <param name="isLiquidTemplate"><inheritdoc cref="IsLiquidTemplate" path="/summary"/></param>
         /// <param name="initialize"><see langword="true"/> to initialize the template in constructor, otherwise <see langword="false"/>.</param>
-        public MOTDTemplate(string motdPath, bool isLiquidTemplate, bool initialize = true)
+        public MOTDTemplate(string motdPath, bool isLiquidTemplate = false, bool initialize = true)
         {
             _motdPath = motdPath;
             _isLiquidTemplate = isLiquidTemplate;
