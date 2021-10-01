@@ -34,4 +34,4 @@ At the moment, these are the additionally exposed variables:
 - `players_array` an array of TShock players.
 
 # License
-MIT-0
+[MIT-0](https://github.com/Arthri/TemplateMOTDPlugin/blob/master/LICENSE)
