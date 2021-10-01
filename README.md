@@ -33,5 +33,10 @@ At the moment, these are the additionally exposed variables:
 - `command_silent_specifier` the silent command specifier, by default `.`.
 - `players_array` an array of TShock players.
 
+# Building
+1. Restore tools: `dotnet tool restore`
+2. Restore dependencies: `dotnet paket restore`
+3. Build: `dotnet build`
+
 # License
 [MIT-0](https://github.com/Arthri/TemplateMOTDPlugin/blob/master/LICENSE)
