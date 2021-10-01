@@ -28,6 +28,7 @@ namespace TemplateMOTDPlugin
 
         public override void Initialize()
         {
+            RawMOTD = new MOTDTemplate(Paths.MOTDPath);
         }
 
         protected override void Dispose(bool disposing)
