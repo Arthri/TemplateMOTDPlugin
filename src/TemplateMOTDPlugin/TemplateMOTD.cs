@@ -32,11 +32,12 @@ namespace TemplateMOTDPlugin
 
         public override void Initialize()
         {
-            // Create all important folders
+            // Create important folders
             Directory.CreateDirectory(Paths.SavePath);
 
-            var motdPath = Paths.MOTDPath;
 
+            // Create default MOTD if one doesn't exist
+            var motdPath = Paths.MOTDPath;
             if (!File.Exists(motdPath))
             {
                 var assembly = Assembly.GetExecutingAssembly();
@@ -49,9 +50,13 @@ namespace TemplateMOTDPlugin
                 }
             }
 
-            RawMOTD = new MOTDTemplate(motdPath);
 
+            LoadConfig();
+
+
+            // Attach hooks
             ServerApi.Hooks.NetGreetPlayer.Register(this, OnGreetPlayer);
+
 
             // Find TShock's MOTD command and replace it
             var motdCommand = Commands.TShockCommands.FirstOrDefault(c => c.HasAlias("motd"));
@@ -64,6 +69,11 @@ namespace TemplateMOTDPlugin
             {
                 motdCommand.CommandDelegate = (e) => e.Player.SendMessage(MOTD, Color.White);
             }
+        }
+
+        public void LoadConfig()
+        {
+            RawMOTD = new MOTDTemplate(Paths.MOTDPath);
         }
 
         protected override void Dispose(bool disposing)
