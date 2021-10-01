@@ -56,7 +56,7 @@ namespace TemplateMOTDPlugin
 
 
             // Attach hooks
-            ServerApi.Hooks.NetGreetPlayer.Register(this, OnGreetPlayer);
+            ServerApi.Hooks.NetGreetPlayer.Register(this, OnGreetPlayer, int.MaxValue);
             GeneralHooks.ReloadEvent += OnReload;
 
 
