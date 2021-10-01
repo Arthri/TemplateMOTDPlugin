@@ -1,0 +1,14 @@
+STORAGE: NONE
+RESTRICTION: == net472
+NUGET
+  remote: https://www.nuget.org/api/v2
+    Microsoft.CSharp (4.7)
+    Scriban (4.0.2)
+      Microsoft.CSharp (>= 4.5)
+      System.Threading.Tasks.Extensions (>= 4.5)
+    System.Runtime.CompilerServices.Unsafe (5.0)
+    System.Threading.Tasks.Extensions (4.5.4)
+      System.Runtime.CompilerServices.Unsafe (>= 4.5.3)
+HTTP
+  remote: https://github.com
+    TShock/TShock.zip (/Pryaxis/TShock/releases/download/v4.5.5/TShock4.5.5_Terraria_1.4.2.3.zip)
