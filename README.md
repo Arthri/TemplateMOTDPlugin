@@ -6,7 +6,7 @@ TemplateMOTDPlugin replaces TShock's MOTD engine with [Scriban](https://github.c
 2. Drag and drop the `.zip` file into the server root directory
 3. Unzip the `.zip`
 4. **Optional**ly, make a copy of `tshock/motd.txt` then clear the original file's contents
-    4.1. If you skip the above step, then the plugin will automatically do it for you. A backup of the MOTD will be located at `config/templatemotd/motd.old.tshock.{timestamp}.txt`. The `{timestamp}` is the UTC Unix timestamp of MOTD file's creation date
+    1. If you skip the above step, then the plugin will automatically do it for you. A backup of the MOTD will be located at `config/templatemotd/motd.old.tshock.{timestamp}.txt`. The `{timestamp}` is the UTC Unix timestamp of MOTD file's creation date
 5. Done!
 
 # Usage
