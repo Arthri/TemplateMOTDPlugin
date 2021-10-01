@@ -8,6 +8,7 @@ using TemplateMOTDPlugin.Templating;
 using Terraria;
 using TerrariaApi.Server;
 using TShockAPI;
+using TShockAPI.Hooks;
 
 namespace TemplateMOTDPlugin
 {
@@ -56,6 +57,7 @@ namespace TemplateMOTDPlugin
 
             // Attach hooks
             ServerApi.Hooks.NetGreetPlayer.Register(this, OnGreetPlayer);
+            GeneralHooks.ReloadEvent += OnReload;
 
 
             // Find TShock's MOTD command and replace it
@@ -102,6 +104,11 @@ namespace TemplateMOTDPlugin
             }
 
             tsplayer.SendMessage(MOTD, Color.White);
+        }
+
+        private void OnReload(ReloadEventArgs e)
+        {
+            LoadConfig();
         }
     }
 }
