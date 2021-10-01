@@ -43,6 +43,7 @@
     <Reference Include="OTAPI">
       <HintPath>..\..\paket-files\github.com\TShock\OTAPI.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="TerrariaServer">
       <HintPath>..\..\paket-files\github.com\TShock\TerrariaServer.exe</HintPath>
     </Reference>
