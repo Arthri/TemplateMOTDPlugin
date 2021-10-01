@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 using System.Reflection;
 using TemplateMOTDPlugin.Configuration;
 using TemplateMOTDPlugin.Templating;
@@ -33,6 +34,18 @@ namespace TemplateMOTDPlugin
             RawMOTD = new MOTDTemplate(Paths.MOTDPath);
 
             ServerApi.Hooks.NetGreetPlayer.Register(this, OnGreetPlayer);
+
+            // Find TShock's MOTD command and replace it
+            var motdCommand = Commands.TShockCommands.FirstOrDefault(c => c.HasAlias("motd"));
+
+            if (motdCommand == null)
+            {
+                TShock.Log.Error("Command replacement aborted: TShock's MOTD command was not found");
+            }
+            else
+            {
+                motdCommand.CommandDelegate = (e) => e.Player.SendMessage(MOTD, Color.White);
+            }
         }
 
         protected override void Dispose(bool disposing)
