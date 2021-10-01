@@ -1,9 +1,11 @@
+using Microsoft.Xna.Framework;
 using System;
 using System.Reflection;
 using TemplateMOTDPlugin.Configuration;
 using TemplateMOTDPlugin.Templating;
 using Terraria;
 using TerrariaApi.Server;
+using TShockAPI;
 
 namespace TemplateMOTDPlugin
 {
@@ -29,14 +31,36 @@ namespace TemplateMOTDPlugin
         public override void Initialize()
         {
             RawMOTD = new MOTDTemplate(Paths.MOTDPath);
+
+            ServerApi.Hooks.NetGreetPlayer.Register(this, OnGreetPlayer);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
+                ServerApi.Hooks.NetGreetPlayer.Deregister(this, OnGreetPlayer);
             }
             base.Dispose(disposing);
+        }
+
+        private void OnGreetPlayer(GreetPlayerEventArgs e)
+        {
+            if (e.Handled)
+            {
+                return;
+            }
+
+            var tsplayer = TShock.Players[e.Who];
+
+            if (tsplayer == null)
+            {
+                var netPlayer = Netplay.Clients[e.Who];
+                TShock.Log.Error($"Unable to send message to {netPlayer.Socket.GetRemoteAddress()}(joined as {netPlayer.Name}): TShock's equivalent player is null");
+                return;
+            }
+
+            tsplayer.SendMessage(MOTD, Color.White);
         }
     }
 }
